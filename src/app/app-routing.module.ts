@@ -8,8 +8,8 @@ import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   { path: '', component: SignInPageComponent },
-  { path: 'albums', canActivate: [AuthGuard], component: AlbumsPageComponent },
-  { path: 'albums/:albumId', canActivate: [AuthGuard], component: PhotosPageComponent },
+  { path: 'albums', component: AlbumsPageComponent },
+  { path: 'albums/:albumId', component: PhotosPageComponent },
 ];
 
 @NgModule({

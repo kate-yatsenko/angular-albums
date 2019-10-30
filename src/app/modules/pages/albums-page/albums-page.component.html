@@ -1,1 +1,7 @@
-<p>albums-page works!</p>
+<ul>
+  <li *ngFor="let album of albums">
+    <a [routerLink]="album.id.toString()">
+      <p>{{ album.title }}</p>
+    </a>
+  </li>
+</ul>

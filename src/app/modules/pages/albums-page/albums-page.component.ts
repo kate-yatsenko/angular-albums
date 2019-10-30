@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpService } from '../../../core/services/http.service';
+import { ActivatedRoute } from '@angular/router';
+import { Album } from '../../../shared/models/Album';
 
 @Component({
   selector: 'app-albums-page',
@@ -7,9 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AlbumsPageComponent implements OnInit {
 
-  constructor() { }
+  public albums: Array<Album> = [];
+
+  constructor(
+    private http: HttpService,
+    private route: ActivatedRoute
+  ) {
+  }
 
   ngOnInit() {
+
+    this.http.getAlbums('1').subscribe(albums => this.albums = albums);
   }
 
 }
