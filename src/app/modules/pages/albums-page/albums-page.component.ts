@@ -1,26 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../../../core/services/http.service';
-import { ActivatedRoute } from '@angular/router';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { Album } from '../../../shared/models/Album';
+import * as albumsReducer from '../../../store/reducers/albums';
+import * as albumsActions from '../../../store/actions/albums';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-albums-page',
   templateUrl: './albums-page.component.html',
   styleUrls: ['./albums-page.component.scss']
 })
-export class AlbumsPageComponent implements OnInit {
+export class AlbumsPageComponent implements OnInit, DoCheck {
 
-  public albums: Array<Album> = [];
+  albums$: Observable<Array<Album>>;
 
   constructor(
-    private http: HttpService,
-    private route: ActivatedRoute
+    private store: Store<albumsReducer.State>,
   ) {
+    this.albums$ = store.select(albumsReducer.getAlbums);
   }
 
   ngOnInit() {
-
-    this.http.getAlbums('1').subscribe(albums => this.albums = albums);
+    this.store.dispatch(new albumsActions.GetAllAction());
   }
+
+  ngDoCheck(): void {
+    console.log(this.albums$);
+  }
+
 
 }

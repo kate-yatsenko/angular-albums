@@ -1,5 +1,5 @@
 <ul>
-  <li *ngFor="let album of albums">
+  <li *ngFor="let album of albums$ | async">
     <a [routerLink]="album.id.toString()">
       <p>{{ album.title }}</p>
     </a>
