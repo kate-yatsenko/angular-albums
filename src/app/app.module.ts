@@ -15,7 +15,8 @@ import { AuthService } from './core/services/auth.service';
 import { AuthGuard } from './core/guards/auth.guard';
 import { HttpClientModule } from '@angular/common/http';
 import { reducers, metaReducers } from './store/reducers';
-import { AlbumsEffects } from './store/effects/albums';
+import { AlbumsEffects } from './store/effects/albums.effect';
+import { AuthEffects } from './store/effects/auth.effect';
 
 @NgModule({
   declarations: [
@@ -24,14 +25,14 @@ import { AlbumsEffects } from './store/effects/albums';
     AlbumsPageComponent,
     PhotosPageComponent,
     HeaderComponent,
-    SignInFormComponent
+    SignInFormComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     StoreModule.forRoot(reducers, { metaReducers }),
-    EffectsModule.forRoot([AlbumsEffects])
+    EffectsModule.forRoot([AlbumsEffects, AuthEffects])
   ],
   providers: [
     HttpService,

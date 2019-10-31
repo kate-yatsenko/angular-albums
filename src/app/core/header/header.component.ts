@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { User } from '../../shared/models/User/User';
+import { Store } from '@ngrx/store';
+import * as authReducer from '../../store/reducers/auth.reducer';
+import * as authActions from '../../store/actions/auth.action';
 
 @Component({
   selector: 'app-header',
@@ -7,14 +12,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() {
+  user$: Observable<User>;
+
+  constructor(private store: Store<authReducer.State>) {
+    this.user$ = store.select(authReducer.getUser);
   }
 
   ngOnInit() {
   }
 
-  signOut() {
-    console.log('sign out');
+  logout() {
+    this.store.dispatch(new authActions.LogoutAction());
   }
 
 }

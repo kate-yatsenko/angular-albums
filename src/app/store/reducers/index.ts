@@ -1,11 +1,14 @@
 import { ActionReducerMap, createSelector, createFeatureSelector,
   ActionReducer, MetaReducer } from '@ngrx/store';
-import * as fromAlbums from './albums';
+import * as fromAlbums from './albums.reducer';
+import * as fromAuth from './auth.reducer';
 export interface State {
   albums: fromAlbums.State;
+  auth: fromAuth.State;
 }
 export const reducers: ActionReducerMap<State> = {
-  albums: fromAlbums.reducer
+  albums: fromAlbums.reducer,
+  auth: fromAuth.reducer
 };
 export function logger(reducer: ActionReducer<State>):
   ActionReducer<State> {

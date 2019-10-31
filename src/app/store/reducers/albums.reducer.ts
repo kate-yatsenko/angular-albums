@@ -1,4 +1,4 @@
-import * as albumsAction from '../actions/albums';
+import * as albumsAction from '../actions/albums.action';
 
 import { Album } from '../../shared/models/Album';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
@@ -39,15 +39,15 @@ export function reducer(state = initialState, action: albumsAction.Action) {
   }
 }
 
-export const getArticleState = createFeatureSelector<State>('albums');
+export const getAlbumsState = createFeatureSelector<State>('albums');
 
 export const getAlbums = createSelector(
-  getArticleState,
+  getAlbumsState,
   (state: State) => state.albums
 );
 
 export const getSelected = createSelector(
-  getArticleState,
+  getAlbumsState,
   (state: State) => state.selected
 );
 

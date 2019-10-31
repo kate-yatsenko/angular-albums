@@ -9,11 +9,12 @@ import { catchError } from 'rxjs/operators';
 })
 export class AlbumsService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-  getAlbums(): Observable<Array<Album>> {
+  getAlbums(userId: string): Observable<Array<Album>> {
     return this.http
-      .get<Array<Album>>(`https://jsonplaceholder.typicode.com/albums?userId=1`)
+      .get<Array<Album>>(`https://jsonplaceholder.typicode.com/albums`, { params: { userId } })
       .pipe(catchError((error: any) => throwError(error.json())));
   }
 }

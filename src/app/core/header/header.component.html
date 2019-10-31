@@ -2,8 +2,8 @@
   <h1 class="logo">
     Albums
   </h1>
-  <button type="button" class="btn btn--sign-in" *ngIf="user"
-          (click)="signOut()" routerLink="">
+  <button type="button" class="btn btn--sign-in" *ngIf="user$ | async"
+          (click)="logout()" routerLink="">
     Sign out
   </button>
 </header>
