@@ -1,10 +1,11 @@
-import { Component, DoCheck, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Album } from '../../../shared/models/Album';
+import { Observable, Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+
 import * as albumsReducer from '../../../store/reducers/albums.reducer';
 import * as albumsActions from '../../../store/actions/albums.action';
 import * as authReducer from '../../../store/reducers/auth.reducer';
-import { Observable, Subscription } from 'rxjs';
-import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-albums-page',

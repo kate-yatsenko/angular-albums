@@ -1,1 +1,5 @@
-<p>photos-page works!</p>
+<ul>
+  <li *ngFor="let photo of photos$ | async">
+      <p>{{ photo.title }}</p>
+  </li>
+</ul>

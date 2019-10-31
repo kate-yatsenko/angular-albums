@@ -17,10 +17,10 @@ export class AuthEffects {
 
   @Effect()
   loadAuth$ = this.actions$.pipe(
-    ofType(authActions.LOGIN),
-    switchMap(() => {
+    ofType<authActions.LoginAction>(authActions.LOGIN),
+    switchMap(data => {
       return this.authService
-        .login()
+        .login(data.payload)
         .pipe(
           map(auth => {
             if (auth[0]) {

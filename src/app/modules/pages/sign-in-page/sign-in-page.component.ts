@@ -1,9 +1,8 @@
-import { Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Observable } from 'rxjs';
-import { User } from '../../../shared/models/User/User';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as authReducer from '../../../store/reducers/auth.reducer';
 import * as authActions from '../../../store/actions/auth.action';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in-page',
@@ -12,17 +11,22 @@ import * as authActions from '../../../store/actions/auth.action';
 })
 export class SignInPageComponent implements OnInit {
 
-  user$: Observable<User>;
-
-  constructor(private store: Store<authReducer.State>) {
-    this.user$ = store.select(authReducer.getUser);
+  constructor(
+    private store: Store<authReducer.State>,
+    private router: Router
+  ) {
+    store.select(authReducer.getUser).subscribe(user => {
+      if (user) {
+        router.navigate(['albums']);
+      }
+    });
   }
 
   ngOnInit() {
   }
 
-  public login() {
-    this.store.dispatch(new authActions.LoginAction());
+  public signIn(userData: object) {
+    this.store.dispatch(new authActions.LoginAction(userData));
   }
 
 }

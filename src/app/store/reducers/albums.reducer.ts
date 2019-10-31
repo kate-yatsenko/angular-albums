@@ -6,12 +6,10 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 export interface State {
   albums: Array<Album>;
-  selected: number;
 }
 
 export const initialState: State = {
   albums: [],
-  selected: null,
 };
 
 export function reducer(state = initialState, action: albumsAction.Action) {
@@ -22,15 +20,6 @@ export function reducer(state = initialState, action: albumsAction.Action) {
       return {
         ...state,
         albums
-      };
-    }
-
-
-    case albumsAction.SELECT: {
-      const id = action.payload;
-      return {
-        ...state,
-        selected: id
       };
     }
 
@@ -46,8 +35,4 @@ export const getAlbums = createSelector(
   (state: State) => state.albums
 );
 
-export const getSelected = createSelector(
-  getAlbumsState,
-  (state: State) => state.selected
-);
 

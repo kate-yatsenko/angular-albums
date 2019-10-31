@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { Album } from '../../../shared/models/Album';
 import { catchError } from 'rxjs/operators';
 import { User } from '../../../shared/models/User/User';
 
@@ -10,11 +9,16 @@ import { User } from '../../../shared/models/User/User';
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-  login(): Observable<Array<User>> {
+  login(userData: object): Observable<Array<User>> {
     return this.http
-      .get<Array<User>>(`https://jsonplaceholder.typicode.com/users?username=Bret&email=Sincere@april.biz`)
+      .get<Array<User>>('https://jsonplaceholder.typicode.com/users', { params: { ...userData } })
       .pipe(catchError((error: any) => throwError(error.json())));
+  }
+
+  isAuth(): boolean {
+    return Boolean(localStorage.getItem('user'));
   }
 }

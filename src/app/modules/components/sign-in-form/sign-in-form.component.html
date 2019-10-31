@@ -1,1 +1,5 @@
-<p>sign-in-form works!</p>
+<form [formGroup]="loginGroup">
+  <input formControlName="username">
+  <input formControlName="email">
+  <button (click)="login()">login</button>
+</form>

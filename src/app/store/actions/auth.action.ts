@@ -8,18 +8,22 @@ export const LOGOUT = '[Auth] Logout';
 export class LoginAction implements Action {
   readonly type = LOGIN;
 
-  constructor() { }
+  constructor(public payload: object) {
+  }
 }
 
 export class LoginSuccessAction implements Action {
   readonly type = LOGIN_SUCCESS;
-  constructor(public payload: User) {}
+
+  constructor(public payload: User) {
+  }
 }
 
 export class LogoutAction implements Action {
   readonly type = LOGOUT;
 
-  constructor() { }
+  constructor() {
+  }
 }
 
 export type Action = LoginAction | LoginSuccessAction | LogoutAction;

@@ -1,16 +1,8 @@
 import { Action } from '@ngrx/store';
 import { Album } from '../../shared/models/Album';
-import { Observable } from 'rxjs';
 
-export const SELECT = '[Albums] Select';
 export const GET_ALL = '[Albums] Get All';
 export const GET_ALL_SUCCESS = '[Albums] Get All Success';
-
-export class SelectAction implements Action {
-  readonly type = SELECT;
-
-  constructor(public payload: number) { }
-}
 
 export class GetAllSuccessAction implements Action {
   readonly type = GET_ALL_SUCCESS;
@@ -23,4 +15,4 @@ export class GetAllAction implements Action {
   constructor(public payload: string) { }
 }
 
-export type Action = GetAllAction | SelectAction | GetAllSuccessAction;
+export type Action = GetAllAction | GetAllSuccessAction;
