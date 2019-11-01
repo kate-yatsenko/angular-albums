@@ -1,11 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
-import { Photo } from '../../../shared/models/Photo';
+import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { Lightbox } from 'ngx-lightbox';
 
 import * as photosReducer from '../../../store/reducers/photos.reducer';
 import * as photosActions from '../../../store/actions/photos.action';
+
+interface HandledPhoto {
+  src: string;
+  caption: string;
+  thumb: string;
+}
 
 @Component({
   selector: 'app-photos-page',
@@ -15,15 +21,22 @@ import * as photosActions from '../../../store/actions/photos.action';
 export class PhotosPageComponent implements OnInit, OnDestroy {
 
   private albumId: string;
-  private subscriptions: Subscription;
-  photos$: Observable<Array<Photo>>;
+  private subscriptions: Array<Subscription> = [];
+  photos: Array<HandledPhoto>;
 
   constructor(
     private route: ActivatedRoute,
-    private store: Store<photosReducer.State>
+    private store: Store<photosReducer.State>,
+    private lightbox: Lightbox
   ) {
-    this.subscriptions = route.params.subscribe(params => this.albumId = params.albumId);
-    this.photos$ = store.select(photosReducer.getPhotos);
+    this.subscriptions.push(route.params.subscribe(params => this.albumId = params.albumId));
+    this.subscriptions.push(store.select(photosReducer.getPhotos).subscribe(photos => {
+      this.photos = photos.map(photo => ({
+        src: photo.url,
+        caption: photo.title,
+        thumb: photo.thumbnailUrl
+      }));
+    }));
   }
 
   ngOnInit() {
@@ -31,7 +44,17 @@ export class PhotosPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
+    this.subscriptions.forEach(subscription => {
+      subscription.unsubscribe();
+    });
+  }
+
+  open(index: number): void {
+    this.lightbox.open(this.photos, index);
+  }
+
+  close(): void {
+    this.lightbox.close();
   }
 
 }

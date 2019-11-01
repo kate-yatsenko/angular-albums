@@ -1,7 +1,10 @@
-<ul>
-  <li *ngFor="let album of albums$ | async">
-    <a [routerLink]="album.id.toString()">
+<div class="album">
+  <ul class="album-list">
+    <li class="album-list-item" *ngFor="let album of albums$ | async">
+      <a class="album-list-item-link" [routerLink]="album.id.toString()" routerLinkActive="active"
+         [routerLinkActiveOptions]="{exact: true}">
       <p>{{ album.title }}</p>
     </a>
   </li>
 </ul>
+</div>

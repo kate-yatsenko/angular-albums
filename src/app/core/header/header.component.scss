@@ -5,8 +5,14 @@
   justify-content: space-between;
   height: 80px;
 
-  &--signout {
+  &-signout {
     display: flex;
     align-items: center;
   }
+
+  &-logo {
+    cursor: pointer;
+  }
 }
+
+
