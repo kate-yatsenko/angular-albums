@@ -1,5 +1,18 @@
 <form [formGroup]="loginGroup">
   <input formControlName="username" placeholder="User Name">
+  <div *ngIf="loginGroup.controls.username.invalid && submit" class="errors">
+    <div *ngIf="loginGroup.controls.username.errors.required">
+      Name is required.
+    </div>
+  </div>
   <input formControlName="email" placeholder="Email">
+  <div *ngIf="loginGroup.controls.email.invalid && submit" class="errors">
+    <div *ngIf="loginGroup.controls.email.errors.required">
+      Email is required.
+    </div>
+    <div *ngIf="loginGroup.controls.email.errors.required && !loginGroup.controls.email.errors.required">
+      Invalid email.
+    </div>
+  </div>
   <button (click)="login()">Login</button>
 </form>

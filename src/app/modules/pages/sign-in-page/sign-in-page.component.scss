@@ -1,0 +1,12 @@
+@import "../../../shared/styles/_color.variables";
+
+.content {
+  max-width: 230px;
+  margin: 50px auto;
+}
+
+.error {
+  border-radius: 5px;
+  padding: 10px;
+  background: $red;
+}

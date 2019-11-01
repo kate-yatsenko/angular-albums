@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import * as authReducer from '../../../store/reducers/auth.reducer';
 import * as authActions from '../../../store/actions/auth.action';
@@ -14,6 +14,7 @@ import * as authActions from '../../../store/actions/auth.action';
 })
 export class SignInPageComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription;
+  private message$: Observable<string>;
 
   constructor(
     private store: Store<authReducer.State>,
@@ -24,6 +25,7 @@ export class SignInPageComponent implements OnInit, OnDestroy {
         router.navigate(['albums']);
       }
     });
+    this.message$ = store.select(authReducer.getMessage);
   }
 
   ngOnInit() {

@@ -25,6 +25,8 @@ export class AuthEffects {
           map(auth => {
             if (auth[0]) {
               return new authActions.LoginSuccessAction(auth[0]);
+            } else {
+              return new authActions.LoginWithInvalidDataAction();
             }
           })
         );

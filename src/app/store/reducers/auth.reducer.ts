@@ -6,10 +6,12 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 export interface State {
   user: User;
+  message: string;
 }
 
 export const initialState: State = {
   user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null,
+  message: ''
 };
 
 export function reducer(state = initialState, action: authAction.Action) {
@@ -20,7 +22,8 @@ export function reducer(state = initialState, action: authAction.Action) {
 
       return {
         ...state,
-        user
+        user,
+        message: ''
       };
     }
 
@@ -30,6 +33,13 @@ export function reducer(state = initialState, action: authAction.Action) {
       return {
         ...state,
         user: null
+      };
+    }
+
+    case authAction.LOGIN_INVALID: {
+      return {
+        ...state,
+        message: 'User does not exist.'
       };
     }
 
@@ -47,6 +57,11 @@ export const getUser = createSelector(
 
 export const getUserId = createSelector(
   getAuthState,
-  (state: State) => state.user.id
+  (state: State) => state.user ? state.user.id : ''
+);
+
+export const getMessage = createSelector(
+  getAuthState,
+  (state: State) => state.message
 );
 
