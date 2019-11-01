@@ -1,9 +1,10 @@
-<header>
+<header class="header">
   <h1 class="logo">
     Albums
   </h1>
-  <button type="button" class="btn btn--sign-in" *ngIf="user$ | async"
-          (click)="logout()" routerLink="">
-    Sign out
-  </button>
+  <div class="header--signout">
+    <button type="button" (click)="logout()" routerLink="">
+      Sign out
+    </button>
+  </div>
 </header>

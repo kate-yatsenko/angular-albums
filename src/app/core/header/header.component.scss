@@ -1,0 +1,12 @@
+@import "../../shared/styles/button";
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  height: 80px;
+
+  &--signout {
+    display: flex;
+    align-items: center;
+  }
+}
